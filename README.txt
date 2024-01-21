@@ -24,7 +24,7 @@ Files:
 Instruction:
 on local:
 1.	Go to the "data" directory and run "node database-initializer.js" to initialize all data.
-2.	Navigate to the "term-project" directory and execute "node server.js" to launch the project.
+2.	Navigate to the root directory and execute "node server.js" to launch the project.
 3.	Next, open Chrome and enter the following URL: http://localhost:3000.
 
 Overall Design and Implementation Quality:
