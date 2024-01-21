@@ -1,0 +1,247 @@
+Free:
+
+URL/Pattern: / 
+HTTP Method: GET
+Description:
+login page
+Supported Query Parameters:
+None
+Expected Request Body Data:
+None
+Supported Response Data Types:
+    • text/html
+Expected Response (Success):
+    • Status code of 200.
+    • text/html: An HTML page containing a form to login and register.
+
+URL/Pattern: /login
+HTTP Method: POST
+Description:
+send a request to login server
+Supported Query Parameters:
+None
+Expected Request Body Data:
+JSON string containing username and password. Example: {“username”: “desired username”, “password”: “desired password”}
+Supported Response Data Types:
+    • application/json
+Expected Response (Success):
+    • Status code of 200.
+    • JSON string representing the newly created user object.
+
+URL/Pattern: /logout
+HTTP Method: GET
+Description:
+send a request to logout server
+Supported Query Parameters:
+None
+Expected Request Body Data:
+None
+Supported Response Data Types:
+    • text/html
+Expected Response (Success):
+    • Status code of 200.
+    • A text to make sure the user logs out.
+
+URL/Pattern: /users
+HTTP Method: POST
+Description:
+add a new user to register.
+Expected Request Body Data:
+JSON string containing username and password for the new user. Example: {“username”: “desired username”, “password”: “desired password”}
+Supported Response Data Types:
+None
+Expected Response (Success):
+    • Status code of 201(Created).
+
+Need Authentication:
+
+URL/Pattern: /users
+HTTP Method: GET
+Description:
+get all artists list.
+Expected Request Body Data:
+None. 
+Supported Response Data Types:
+    • application/json
+    • text/html
+Expected Response (Success):
+    • Status code of 200.
+    • If text/html is requested: An HTML page including all artist’ lists.
+    • If application/json is requested: An object representation of artists' lists.
+
+URL/Pattern: /users/:id
+HTTP Method: GET
+Description:
+get the particular id user information.
+URL Parameters:
+    • id – the unique user ID to retrieve
+Expected Request Body Data:
+None. 
+Supported Response Data Types:
+    • application/json
+    • text/html
+Expected Response (Success):
+    • Status code of 200.
+    • If text/html is requested: An HTML page including user information.
+    • If application/json is requested: An object representation of the given user.
+
+URL/Pattern: /users
+HTTP Method: PUT
+Description:
+toggle user role.
+Expected Request Body Data:
+None. 
+Supported Response Data Types:
+    • application/json
+Expected Response (Success):
+    • Status code of 200.
+    • User ID to redirect to get new updated information.
+
+URL/Pattern: /users/following
+HTTP Method: POST
+Description:
+add a new artist to the user’s following list.
+Expected Request Body Data:
+JSON string containing artist id for the new following. Example: {“artist_id”: “desired id}
+Supported Response Data Types:
+    • text/html
+Expected Response (Success):
+    • Status code of 200.
+    • A text to make sure to add successfully.
+
+URL/Pattern: /users/following
+HTTP Method: DELETE
+Description:
+delete the artist from the user’s following list.
+Expected Request Body Data:
+JSON string containing artist id. Example: {“artist_id”: “desired id”}
+Supported Response Data Types:
+    • application/json
+Expected Response (Success):
+    • Status code of 200.
+    • User ID to redirect to get new updated information.
+
+URL/Pattern: /users/reviews
+HTTP Method: POST
+Description:
+add a new review object to the user’s review list.
+Expected Request Body Data:
+JSON string containing artwork id, and review content. Example: {“artwork_id”: “desired id”, “content”: “review content”}
+Supported Response Data Types:
+    • text/html
+Expected Response (Success):
+    • Status code of 200.
+    • A text to make sure to add successfully.
+
+URL/Pattern: /users/reviews
+HTTP Method: DELETE
+Description:
+delete the review from the user’s review list.
+Expected Request Body Data:
+JSON string containing review id and artwork id. Example: {“review_id”: “desired id”, “artwork_id”: “desired id”}
+Supported Response Data Types:
+    • application/json
+Expected Response (Success):
+    • Status code of 200.
+    • User ID to redirect to get new updated information.
+
+URL/Pattern: /users/like
+HTTP Method: POST
+Description:
+add a new like object to the user’s like list.
+Expected Request Body Data:
+JSON string containing artwork id. Example: {“artwork_id”: “desired id}
+Supported Response Data Types:
+    • text/html
+Expected Response (Success):
+    • Status code of 200.
+    • A text to make sure to add successfully.
+
+URL/Pattern: /users/like
+HTTP Method: DELETE
+Description:
+delete the artwork from the user’s like list.
+Expected Request Body Data:
+JSON string containing artwork id. Example: {“artwork_id”: “desired id”}
+Supported Response Data Types:
+    • application/json
+Expected Response (Success):
+    • Status code of 200.
+    • User ID to redirect to get new updated information.
+
+URL/Pattern: /users/workshops
+HTTP Method: POST
+Description:
+add a new workshop.
+Expected Request Body Data:
+JSON string containing title. 
+Supported Response Data Types:
+    • application/json
+Expected Response (Success):
+    • Status code of 200.
+    • User ID to redirect to get new updated information.
+
+URL/Pattern: /users/enrollment
+HTTP Method: PUT
+Description:
+the user enters a new workshop.
+Expected Request Body Data:
+JSON string containing title. 
+Supported Response Data Types:
+    • text/html
+Expected Response (Success):
+    • Status code of 200.
+    • A text to make sure to enrollment successfully.
+
+
+URL/Pattern: /artworks
+HTTP Method: GET
+Description:
+searches artworks on the server.
+Supported Query Parameters:
+    • Title (string) - an artwork will match if its title is the given string value
+    • Artist (string) – an artwork will match if its artist is the given value
+    • Category (string) – an artwork will match if its category has the given value
+    • page (number) - the page of results to return
+Expected Request Body Data:
+None
+Supported Response Data Types:
+    • application/json
+    • text/html
+Expected Response (Success):
+    • Status code of 200.
+    • If text/html is requested: An HTML page including artwork information.
+    • If application/json is requested: An object representation of the artworks.
+
+URL/Pattern: /artworks/:id
+HTTP Method: GET
+Description:
+Retrieves the artwork with the unique id, if it exists.
+URL Parameters:
+    • artwork_id – the unique artwork id.
+Expected Request Body Data:
+None
+Supported Response Data Types:
+    • text/html
+    • application/json
+Expected Response (Success):
+    • Status code of 200.
+    • If text/html is requested: An HTML page containing all information of the artwork.
+    • If application/json is requested: An object containing all information of the artwork
+
+URL/Pattern: /artworks
+HTTP Method: POST
+Description:
+add a new artwork on the server.
+Expected Request Body Data:
+JSON string containing title, artist, year, category, medium, description, and poster. 
+Supported Response Data Types:
+    • application/json
+Expected Response (Success):
+    • Status code of 200.
+    • User ID to redirect to get new updated information.
+
+
+
+
+
