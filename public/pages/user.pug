@@ -1,0 +1,137 @@
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        title Account
+        include ../partials/head.pug
+        script(src="http://localhost:3000/user.js", defer)
+    body
+        include ../partials/header.pug
+        div(style="margin-top:70px")
+        h1 #{username}
+        ul.list-group.list-group-flush
+            li.list-group-item
+                .row.row-cols-lg-auto.g-3.align-items-center
+                    .col-12
+                        b Role: 
+                    .col-12
+                        if user.artist == true 
+                            b Artist
+                        else 
+                            b Patron
+                    .col-12
+                        if user.artist == true 
+                            button.btn.btn-primary(onclick="switchRole()" type="button") Switch
+                        else 
+                            if user.artworks.length == 0
+                                button.btn.btn-primary(id="switchToArtist" type="button" data-bs-toggle="modal" data-bs-target="#switchModal") Switch
+                            else 
+                                button.btn.btn-primary(onclick="switchRole()" type="button") Switch
+            if user.artist == true 
+                li.list-group-item
+                    b Artworks:
+                        ul  
+                            -for(let i = 0; i < user.artworks.length; i++)
+                                li 
+                                    a(href=`http://localhost:3000/artworks/${user.artworks[i].artwork_id}`) #{user.artworks[i].artwork_title}  
+                li.list-group-item
+                    .row.row-cols-lg-auto.g-3.align-items-center
+                        .col-12
+                            b Add artworks: 
+                        .col-12
+                            button.btn.btn-primary(type="button" data-bs-toggle="modal" data-bs-target="#switchModal") Add Artworks
+                li.list-group-item
+                    .row.row-cols-lg-auto.g-3.align-items-center
+                        .col-12
+                            b Add workshop: 
+                        .col-12
+                            button.btn.btn-primary(type="button" data-bs-toggle="modal" data-bs-target="#addWorkshopModal") Add Workshop
+            li.list-group-item
+                b Following:
+                    if(user.following.length!=0)
+                        ul
+                            each f in user.following 
+                                li 
+                                    a(href=`http://localhost:3000/users/${f.artist_id}`) #{f.artist_name}  
+                                    img(onclick=`deleteFollowing('${f.artist_id}')` src="/remove.png" id="removeFollowing" alt="remove button" style= "width: 15px;")
+                    else 
+                        b  0
+            li.list-group-item
+                b Likes:
+                    if(user.likes.length!=0)
+                        ul  
+                            each l in user.likes 
+                                li 
+                                    a(href=`http://localhost:3000/artworks/${l.artwork_id}`) #{l.artwork_title}    
+                                    img(onclick=`removeLike('${l.artwork_id}')` src="/remove.png" id="removeFollowing" alt="remove button" style= "width: 15px;")
+                    else 
+                        b  0
+            li.list-group-item
+                b Reviews:
+                    if(user.reviews.length!=0)
+                        ul  
+                            each r in user.reviews 
+                                li 
+                                    a(href=`http://localhost:3000/artworks/${r.artwork_id}`) #{r.artwork_title}    
+                                    img(onclick=`removeReview('${r.artwork_id}','${r._id}')` src="/remove.png" id="removeFollowing" alt="remove button" style= "width: 15px;")
+                                    div
+                                        p #{r.content}
+                    else 
+                        b  0
+            li.list-group-item
+                b Notifications:
+                    if(user.notifications.length!=0)
+                        ul  
+                            -for(let i = user.notifications.length-1; i >=0; i --)
+                                li 
+                                    a(href=`http://localhost:3000/users/${user.notifications[i].artist_id}`) #{user.notifications[i].artist_name}    
+                                    div
+                                        p #{user.notifications[i].content}
+                    else 
+                        b  0
+
+        .modal.fade(id="switchModal" tabindex="-1" aria-labelledby="switchLabel" aria-hidden="true")
+            .modal-dialog
+                .modal-content
+                    .modal-header
+                        h1.modal-title.fs-5(id="switchLabel") Add Artwork
+                        button.btn-close(type="button" data-bs-dismiss="modal" aria-label="Close")
+                    .modal-body
+                        .input-group.mb-3
+                            span.input-group-text(id="inputGroup-sizing-default") Title
+                            input.form-control(id="switchTitle" type="text" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default")
+                        .input-group.mb-3
+                            span.input-group-text(id="inputGroup-sizing-default") Year
+                            input.form-control(id="switchYear" type="text" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default")
+                        .input-group.mb-3
+                            span.input-group-text(id="inputGroup-sizing-default") Category
+                            input.form-control(id="switchCategory" type="text" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" placeholder="Enter categories separated by commas")
+                        .input-group.mb-3
+                            span.input-group-text(id="inputGroup-sizing-default") Medium
+                            input.form-control(id="switchMedium" type="text" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" placeholder="Enter mediums separated by commas")
+                        .input-group.mb-3
+                            span.input-group-text(id="inputGroup-sizing-default") Poster
+                            input.form-control(id="switchPoster" type="text" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default")
+                        .input-group.mb-3
+                            span.input-group-text(id="inputGroup-sizing-default") Description
+                            textarea.form-control(id="switchDescription" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default")
+                    .modal-footer
+                        button.btn.btn-secondary(type="button" data-bs-dismiss="modal") Close
+                        button.btn.btn-primary(onclick="addNewArtwork()" type="button" id="switchButton") Add
+        .modal.fade(id="addWorkshopModal" tabindex="-1" aria-labelledby="switchLabel" aria-hidden="true")
+            .modal-dialog
+                .modal-content
+                    .modal-header
+                        h1.modal-title.fs-5(id="workshopLabel") Add Workshop
+                        button.btn-close(type="button" data-bs-dismiss="modal" aria-label="Close")
+                    .modal-body
+                        .input-group.mb-3
+                            span.input-group-text(id="inputGroup-sizing-default") Title
+                            input.form-control(id="workshopTitle" type="text" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default")
+                    .modal-footer
+                        button.btn.btn-secondary(type="button" data-bs-dismiss="modal") Close
+                        button.btn.btn-primary(onclick="addWorkshop()" type="button") Add
+
+
+        include ../partials/footer.pug
+
+

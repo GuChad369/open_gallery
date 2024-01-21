@@ -1,0 +1,23 @@
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        title Login
+        link(rel="stylesheet" href="login.css")
+        link(rel='icon' type='image/png' href='favicon.jpg')
+        link(rel="stylesheet" href="common.css")
+        meta(name="viewport" content="width=device-width, initial-scale=1.0")
+        script(src="login.js", defer)
+    body
+        div.formcenter
+            form
+                h1 Login
+                div
+                    label(for="username") Name
+                    input(type="text" id="username" name="username")
+                div
+                    label(for="password") Password
+                    input(type="password" id="password" name="password")
+                div
+                    input(type="submit" id="register" value="Register")
+                    input(type="submit" id="login" value="Login")
+        include ../partials/footer.pug

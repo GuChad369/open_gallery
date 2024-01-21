@@ -1,0 +1,21 @@
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        title Artists
+        include ../partials/head.pug
+        script(src="http://localhost:3000/artists.js", defer)
+    body
+        include ../partials/header.pug
+        div(style="margin-top:70px")
+        if aLinkP 
+            p#aLinkP(style="display:none;") #{artist_id}
+        div#showResult 
+            h1 All Artists
+            ul
+                each a in artists
+                    if a.artist == true
+                        li 
+                            a(href=`http://localhost:3000/users/${a._id}` onclick='getArtist(event)') #{a.username}
+        include ../partials/footer.pug
+
+
