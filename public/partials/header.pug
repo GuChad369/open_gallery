@@ -1,0 +1,37 @@
+nav.navbar.navbar-expand-lg.bg-body-tertiary.fixed-top.nav-underline
+    .container-fluid
+        a.navbar-brand #{username}
+        button.navbar-toggler(type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation")
+            span.navbar-toggler-icon
+        .collapse.navbar-collapse#navbarSupportedContent
+            ul.navbar-nav.me-auto.mb-2.mb-lg-0
+                li.nav-item
+                    a.nav-link(href="http://localhost:3000/artworks" id="artworks") Artworks
+                li.nav-item
+                    a.nav-link(href=`http://localhost:3000/users/${userId}` id="user") User
+                li.nav-item
+                    a.nav-link(href="http://localhost:3000/users" id="artists") Artists
+            button.d-flex.btn.btn-outline-success.btn-lg(type="button" data-bs-toggle="modal" data-bs-target="#searchModal") Search
+            button.d-flex.btn.btn-outline-success.btn-lg(style="margin-left:5px;" type="button" id="logoutButton") Logout
+
+.modal.fade(id="searchModal" tabindex="-1" aria-labelledby="searchModalLabel" aria-hidden="true")
+    .modal-dialog
+        .modal-content
+            .modal-header
+                h1.modal-title.fs-5(id="searchModalLabel") Search
+                button.btn-close(type="button" data-bs-dismiss="modal" aria-label="Close")
+            .modal-body
+                .input-group.mb-3
+                    span.input-group-text(id="inputGroup-sizing-default") Title
+                    input.form-control(id="searchTitle" type="text" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default")
+                .input-group.mb-3
+                    span.input-group-text(id="inputGroup-sizing-default") Artist Name
+                    input.form-control(id="searchArtistName" type="text" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default")
+                .input-group.mb-3
+                    span.input-group-text(id="inputGroup-sizing-default") Category
+                    input.form-control(id="searchCategory" type="text" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default")
+            .modal-footer
+                button.btn.btn-secondary(type="button" data-bs-dismiss="modal") Close
+                button.btn.btn-primary(type="button" id="searchButton") Search
+
+
